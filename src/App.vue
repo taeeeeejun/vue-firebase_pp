@@ -6,7 +6,7 @@
       dark
     >
       <v-app-bar-nav-icon @click="drawer = !drawer"/>
-      <site-title :title="title"></site-title>
+      <site-title :title="site.title"></site-title>
       <v-spacer/>
       <v-btn icon @click="save"><v-icon>mdi-check</v-icon></v-btn>
       <v-btn icon @click="read"><v-icon>mdi-numeric</v-icon></v-btn>
@@ -16,23 +16,12 @@
       </v-btn>
     </v-app-bar>
     <v-navigation-drawer app v-model="drawer" >
-      <v-list-item>
-        <v-list-item-content>
-          <v-list-item-title class="title">
-            Application
-          </v-list-item-title>
-          <v-list-item-subtitle>
-            subtext
-          </v-list-item-subtitle>
-        </v-list-item-content>
-      </v-list-item>
-      <v-divider></v-divider>
-      <site-menu></site-menu>
+      <site-menu :items="site.menu"></site-menu>
     </v-navigation-drawer>
     <v-main>
       <router-view/>
     </v-main>
-    <site-footer :footer="footer"></site-footer>
+    <site-footer :footer="site.footer"></site-footer>
   </v-app>
 </template>
 
@@ -48,15 +37,31 @@ export default {
     SiteFooter,
     SiteMenu
   },
-  data: () => ({
-    drawer: false,
-    title: 'Page Title',
-    footer: '푸터입니다.'
-  }),
-  mounted () {
-    console.log(this.$firebase)
+  data () {
+    return {
+      drawer: false,
+      site: {
+        menu: [],
+        title: '나의 타이틀 입니다',
+        footer: '푸터입니다.'
+      }
+    }
+  },
+  created () {
+    this.subscribe()
   },
   methods: {
+    subscribe () {
+      this.$firebase.database().ref().child('site').on('value', (sn) => {
+        const v = sn.val()
+        if (!v) {
+          this.$firebase.database().ref().child('site').set(this.site)
+        }
+        this.site = v
+      }, (error) => {
+        console.log(error.message)
+      })
+    },
     save () {
       console.log('save000')
       this.$firebase.database().ref().child('abcd').set({
