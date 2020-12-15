@@ -1,7 +1,7 @@
 <template>
-  <v-toolbak-title>
+  <v-toolbar-title>
     {{ title }}
-  </v-toolbak-title>
+  </v-toolbar-title>
 </template>
 <script>
 export default {
