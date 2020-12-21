@@ -1,14 +1,14 @@
 <template>
   <div>
     <v-list-item>
-      <v-list-content>
+      <v-list-item-content>
         <v-list-item-title class="title">
           Application
         </v-list-item-title>
         <v-list-item-subtitle>
           subtext
         </v-list-item-subtitle>
-      </v-list-content>
+      </v-list-item-content>
     </v-list-item>
     <v-divider></v-divider>
     <v-list>

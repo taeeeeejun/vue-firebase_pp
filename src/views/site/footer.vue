@@ -36,8 +36,6 @@ export default {
         await this.$firebase.database().ref().child('site').update({
           footer: this.text
         })
-      } catch (error) {
-        console.log(error.message)
       } finally {
         this.dialog = false
       }
