@@ -6,7 +6,7 @@ var serviceAccount = require("./key.json");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://memi-vf2-76e26.firebaseio.com"
+  databaseURL: functions.config().admin.db_url
 });
 
 const db = admin.database()
@@ -17,7 +17,8 @@ exports.createUser = functions.auth.user().onCreate(async (user) => {
     email, 
     displayName, 
     photoURL,
-    createAt: new Date()
+    createAt: new Date().getMilliseconds(),
+    level: email == functions.config().admin.email ? 0 : 5
   }
   db.ref('users').child(uid).set(u)
 });

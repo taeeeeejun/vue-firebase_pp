@@ -32,6 +32,7 @@
                 <v-btn icon @click="openDialogItem(index)"><v-icon>mdi-pencil</v-icon></v-btn>
                 <v-btn icon @click="moveItem(items, index, -1)" v-if="index > 0"><v-icon>mdi-chevron-double-up</v-icon></v-btn>
                 <v-btn icon @click="moveItem(items, index, 1)" v-if="index < items.length - 1"><v-icon>mdi-chevron-double-down</v-icon></v-btn>
+                <v-btn icon @click="removeItem(items, index)"><v-icon>mdi-delete</v-icon></v-btn>
               </span>
             </v-list-item-title>
           </v-list-item-content>
@@ -49,6 +50,7 @@
                 <v-btn icon @click="openDialogSubItem(index, subIndex)"><v-icon>mdi-pencil</v-icon></v-btn>
                 <v-btn icon @click="moveItem(item.subItems, subIndex, -1)" v-if="subIndex > 0"><v-icon>mdi-chevron-double-up</v-icon></v-btn>
                 <v-btn icon @click="moveItem(item.subItems, subIndex, 1)" v-if="subIndex < item.subItems.length - 1"><v-icon>mdi-chevron-double-down</v-icon></v-btn>
+                <v-btn icon @click="removeItem(item.subItems, subIndex)"><v-icon>mdi-delete</v-icon></v-btn>
               </span>
             </v-list-item-title>
           </v-list-item-content>
@@ -104,8 +106,8 @@
           <v-btn icon @click="dialogSubItem=false"><v-icon>mdi-close</v-icon></v-btn>
         </v-card-title>
         <v-card-text>
-          <v-text-field v-model="formItem.title" label="메뉴 이름" outlined required></v-text-field>
-          <v-text-field v-model="formItem.to" label="경로" outlined required></v-text-field>
+          <v-text-field v-model="formSubItem.title" label="메뉴 이름" outlined required></v-text-field>
+          <v-text-field v-model="formSubItem.to" label="경로" outlined required></v-text-field>
         </v-card-text>
       </v-card>
     </v-dialog>
@@ -182,6 +184,7 @@ export default {
         if (!this.items[this.selectedItemIndex].subItems) {
           this.items[this.selectedItemIndex].subItems = []
         }
+        console.log(this.formSubItem.title)
         this.items[this.selectedItemIndex].subItems.push({
           title: this.formSubItem.title,
           to: this.formSubItem.to
@@ -193,8 +196,11 @@ export default {
       this.save()
     },
     moveItem (items, index, arrow) {
-      const item = items.splice(index, 1)[0]
-      items.splice(index + arrow, 0, item, ...items.splice(index, 1))
+      items.splice(index + arrow, 0, ...items.splice(index, 1))
+      this.save()
+    },
+    removeItem (items, index) {
+      items.splice(index, 1)
       this.save()
     }
   }
