@@ -8,6 +8,7 @@
       <v-app-bar-nav-icon @click="drawer = !drawer"/>
       <site-title :title="site.title"></site-title>
       <v-spacer/>
+      <site-sign></site-sign>
       <v-btn icon to="/about">
         <v-icon>mdi-magnify</v-icon>
       </v-btn>
@@ -26,13 +27,15 @@
 import SiteTitle from '@/views/site/title.vue'
 import SiteFooter from '@/views/site/footer'
 import SiteMenu from '@/views/site/menu'
+import SiteSign from '@/views/site/sign'
 
 export default {
   name: 'App',
   components: {
     SiteTitle,
     SiteFooter,
-    SiteMenu
+    SiteMenu,
+    SiteSign
   },
   data () {
     return {

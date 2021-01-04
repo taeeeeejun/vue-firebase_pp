@@ -139,7 +139,7 @@ export default {
         this.formItem.icon = 'mdi-crosshairs-question'
         this.formItem.title = ''
       } else {
-        this.formITem.icon = this.item[index].icon
+        this.formItem.icon = this.items[index].icon
         this.formItem.title = this.items[index].title
       }
       this.dialogItem = true
@@ -194,7 +194,7 @@ export default {
     },
     moveItem (items, index, arrow) {
       const item = items.splice(index, 1)[0]
-      items.splice(index + arrow, 0, item)
+      items.splice(index + arrow, 0, item, ...items.splice(index, 1))
       this.save()
     }
   }
