@@ -68,7 +68,7 @@ export default {
             ]
           }
         ],
-        title: '나의 타이틀 입니다',
+        title: '',
         footer: '푸터입니다.'
       }
     }
