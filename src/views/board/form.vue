@@ -11,7 +11,7 @@
         <v-card-text>
           <v-text-field v-model="form.category" outlined label="종류"></v-text-field>
           <v-text-field v-model="form.title" outlined label="제목"></v-text-field>
-          <v-text-field v-model="form.description" outlined label="설명"></v-text-field>
+          <v-textarea v-model="form.description" outlined label="설명"></v-textarea>
         </v-card-text>
       </v-card>
     </v-form>

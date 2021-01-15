@@ -5,6 +5,7 @@
         <v-toolbar-title v-text="info.title"></v-toolbar-title>
         <v-spacer/>
         <v-btn icon @click="write"><v-icon>mdi-pencil</v-icon></v-btn>
+        <v-btn icon @click="articleWrite"><v-icon>mdi-plus</v-icon></v-btn>
       </v-toolbar>
       <v-card-text v-if="info.createdAt">
         <v-alert color="info" outlined dismissible>
@@ -12,6 +13,9 @@
           <div class="text-right font-italic caption">작성일: {{ info.createdAt.toDate().toLocaleString() }}</div>
           <div class="text-right font-italic caption">수정일: {{ info.updatedAt.toDate().toLocaleString() }}</div>
         </v-alert>
+      </v-card-text>
+      <v-card-text>
+        articles
       </v-card-text>
     </v-card>
   </v-container>
@@ -60,7 +64,7 @@ export default {
       this.$router.push(this.$route.path + '/board-write')
     },
     async articleWrite () {
-      this.$router.push({ path: this.$route.path + '/article-write', query: { articleId: 'new' } })
+      this.$router.push({ path: this.$route.path + '/article-write', query: { articleId: '' } })
     }
   }
 }
